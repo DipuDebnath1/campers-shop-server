@@ -1,4 +1,3 @@
-import { BookingRoute } from '../booking/booking.route';
 import express from 'express';
 import { ProductRoute } from '../products/products.route';
 
@@ -7,11 +6,7 @@ const moduleRoute = [
   {
     path: '/products',
     route: ProductRoute,
-  },
-  {
-    path: '/bookings',
-    route: BookingRoute,
-  },
+  }
 ];
 
 moduleRoute.forEach((route) => {
