@@ -54,6 +54,28 @@ const getSingleProduct: RequestHandler = catchAsync(async (req, res, next) => {
     data: result,
   });
 });
+// FindProductWithParam
+const FindProductWithParam: RequestHandler = catchAsync(async (req, res, next) => {
+  const searchText = req.query.text as string;
+  const result = await productService.findProductWithParamIntoDB(searchText);
+
+  if (!result) {
+    sendResponse(res, {
+      statusCode: httpStatus.NOT_FOUND,
+      success: false,
+      message: 'Products retrieved false',
+      data: [],
+    });
+    return;
+  }
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'your Products retrieved successfully',
+    data: result,
+  });
+});
+
 // updateManyProduct
 const updateManyProduct: RequestHandler = catchAsync(async (req, res, next) => {
   
@@ -120,6 +142,7 @@ export const ProductController = {
   createProduct,
   getAllProduct,
   getSingleProduct,
+  FindProductWithParam,
   updateManyProduct,
   updateSingleProduct,
   deleteSingleProduct,

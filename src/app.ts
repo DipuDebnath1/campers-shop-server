@@ -6,7 +6,7 @@ import router from './app/modules/route';
 const app: Application = express();
 
 // parser
-app.use(cors({origin:"**", credentials:true}));
+app.use(cors({origin:'*', credentials:false}));
 app.use(express.json());
 
 app.use('/api', router);

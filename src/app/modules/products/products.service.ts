@@ -24,6 +24,18 @@ const getSingleProductIntoDB = async (id: string) => {
 
   return result;
 };
+// get a Product
+const findProductWithParamIntoDB = async (searchText:string) => {
+  const result = await productCollection.find({
+    $or: [
+      { name: { $regex: searchText, $options: 'i' } }, 
+      { description: { $regex: searchText, $options: 'i' } }  
+    ]
+  });;
+  if (!result) return;
+
+  return result;
+};
 
 // update a Product
 const updateSingleProductIntoDB = async (id: string, payload: Partial<TProduct>) => {
@@ -51,7 +63,7 @@ const updateManyProductIntoDB = async (products: Partial<TProduct>[]) => {
             ...(product.stockQuantity !== undefined && { stockQuantity:product.stockQuantity - product.quantity! }),
           },
         },
-        upsert: false, // Change to true if you want to insert documents that don't exist
+        upsert: false,
       },
     }));
 
@@ -75,6 +87,7 @@ const deleteAProduct = async (id: string) => {
 export const productService = {
   createProductIntoDB,
   getAllProductIntoDB,
+  findProductWithParamIntoDB,
   getSingleProductIntoDB,
   updateSingleProductIntoDB,
   updateManyProductIntoDB,

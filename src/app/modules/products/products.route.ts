@@ -13,6 +13,7 @@ router.post(
 );
 
 router.get('/', ProductController.getAllProduct);
+router.get('/search', ProductController.FindProductWithParam);
 router.get('/:id', ProductController.getSingleProduct);
 router.put('/bulk-update', ProductController.updateManyProduct,
 );
